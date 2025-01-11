@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "discription": " road to learn backend coc channel",
   "scripts": {
     "dev": "nodemon src/index.js"
   },
