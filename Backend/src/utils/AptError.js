@@ -4,7 +4,7 @@ class ApiError extends Error {                       // Inheritance: ApiError ex
           statusCode,                                // The HTTP status code for the error (e.g., 404, 500)
           message = "Something went wrong",          // A default error message if none is provided
           errors = [],                               // An array to store detailed error information, if any
-          statck = ""                                // The stack trace of the error, useful for debugging
+          stack = ""                                // The stack trace of the error, useful for debugging
      ) {
           super(message);                            // Calls the parent Error class constructor to set the error message
           this.statusCode = statusCode;              // Stores the HTTP status code in the instance
@@ -14,9 +14,9 @@ class ApiError extends Error {                       // Inheritance: ApiError ex
           this.errors = errors;                      // Stores any additional error details
 
                                                      // Checks if a stack trace is provided
-          if (statck) { 
+          if (stack) { 
                                                      // If a stack trace is provided, assign it to the instance
-               this.statck = statck; 
+               this.stack = stack; 
           } else {
                                                      // Otherwise, capture and assign the stack trace of the error
                Error.captureStackTrace(this, this.constructor); 
