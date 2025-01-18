@@ -14,7 +14,7 @@ const registerUser = asyncHandler(async (req, res) => {
      //create user object and save it to database
      //remove password and refreshtoken field from response
      //check for user creation 
-     //retur response
+     //return response
 
      const { fullname, username, email, password } = req.body
      console.log(req.body);
@@ -23,7 +23,7 @@ const registerUser = asyncHandler(async (req, res) => {
           throw new ApiError("All fields are required", 400)
      }
 
-     const existingUser = User.findOne({
+     const existingUser = await User.findOne({
           $or: [{ username }, { email }],
 
      })
@@ -34,10 +34,12 @@ const registerUser = asyncHandler(async (req, res) => {
      // const coverImageLoaclPath = req.files?.coverImage = req.avatar[0]?.path;
      const avatarLoaclPath = req.files?.avatar[0]?.path;
      const coverImageLoaclPath = req.files?.coverImage[0]?.path;
-
-     if (!avatarLoaclPath && !coverImageLoaclPath) {
+//.................&& .....||...............................
+     if (!avatarLoaclPath || !coverImageLoaclPath) {
           throw new ApiError("avatar file is required", 400)
      }
+
+     //...............................................................................................................................
      const avatar = await cloudinaryUpload(avatarLoaclPath);
      const coverImage = await cloudinaryUpload(coverImageLoaclPath);
      if (!avatar || !coverImage) {
@@ -48,8 +50,8 @@ const registerUser = asyncHandler(async (req, res) => {
           username: username.toLowerCase(),
           email,
           password,
-          avatar: avatar.url,
-          coverImage: coverImage?.url || " "
+          avatar: avatar,
+          coverImage: coverImage
      })
 
      const createuser = await User.findById(user._id).select("-password -refreshToken")
@@ -60,7 +62,7 @@ const registerUser = asyncHandler(async (req, res) => {
      return res.status(201).json(
           new ApiResponse(res, 201, true, "User created successfully", createuser)
      )
-          A
+          
 
 })
 
