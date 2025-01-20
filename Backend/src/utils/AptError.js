@@ -10,7 +10,7 @@ class ApiError extends Error {                       // Inheritance: ApiError ex
           this.statusCode = statusCode;              // Stores the HTTP status code in the instance
           this.data = null;                          // Default property to store additional data related to the error
           this.success = false;                      // Indicates the operation was not successful
-          this.message = message;                    // Stores the error message in the instance
+          this.message = message="********** user alread exist **********";                    // Stores the error message in the instance
           this.errors = errors;                      // Stores any additional error details
 
                                                      // Checks if a stack trace is provided

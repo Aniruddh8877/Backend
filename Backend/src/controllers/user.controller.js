@@ -28,6 +28,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
      })
      if (existingUser) {
+         
           throw new ApiError("User already exists", 400)
      }
      // const avatarLoaclPath = req.files?.avatar = req.avatar[0]?.path;
@@ -42,9 +43,9 @@ const registerUser = asyncHandler(async (req, res) => {
 
      //...............................................................................................................................
      const avatar = await cloudinaryUpload(avatarLoaclPath);
-     console.log("avatar",avatar);
+     // console.log("avatar",avatar);
      const coverImage = await cloudinaryUpload(coverImageLoaclPath);
-     console.log("coerImage",coverImage,);
+     // console.log("coerImage",coverImage,);
      
      if (!avatar || !coverImage) {
           throw new ApiError("avatar file is required", 400)
@@ -64,8 +65,10 @@ const registerUser = asyncHandler(async (req, res) => {
      }
 
      return res.status(201).json(
-          new ApiResponse(201, true, "User created successfully", createuser)
-      );
+         
+          new ApiResponse( "created",201, true, "user created successfully", createuser)
+      
+     );
       
           
 
